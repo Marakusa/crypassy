@@ -10,6 +10,15 @@
     </head>
 
     <body>
+        <div id="newPasswordPanel" class="newPasswordFilter" style="display: none;">
+            <div class="newPasswordPanel">
+                <input id="newWebsite" placeholder="Website">
+                <input id="newUsername" placeholder="Username/Email">
+                <input id="newPassword" placeholder="Password">
+                <button onclick="addPassword();">Add</button>
+                <button onclick="cancelAddPassword();">Cancel</button>
+            </div>
+        </div>
         <h1>Passman</h1>
         <p>Welcome to Passman! Manage passwords from your USB stick safely.</p>
         <hr>
@@ -25,15 +34,13 @@
         </div>
         <div id="content" style="display:none">
             <p>Here are your passwords. Press "Show" to reveal a password.</p>
+            <a onclick="openAddPassword();" class="newPasswordAdd">+ Add</a>
             <table>
                 <tbody id="passwordList">
-                    <tr>
-                        <th>Website</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                    </tr>
+                    
                 </tbody>
             </table>
+            <a onclick="openAddPassword();" class="newPasswordAdd">+ Add</a>
         </div>
 
         <hr>

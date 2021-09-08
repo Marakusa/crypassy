@@ -26,3 +26,28 @@ tr:first-child {
 .passwordText {
     user-select: all;
 }
+
+.newPasswordFilter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    background-color: #00000078;
+}
+.newPasswordPanel {
+    background-color: white;
+    width: 167px;
+    height: auto;
+    padding: 50px;
+    margin: 50px auto;
+}
+.newPasswordAdd {
+    color: #57b0ff;
+    text-decoration-line: underline;
+    cursor: pointer;
+    user-select: none;
+    margin: 5px 0;
+    display: block;
+}

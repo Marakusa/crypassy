@@ -31,7 +31,7 @@ console.log("Server started at http://127.0.0.1:" + port);
 const io = new Server(server);
 
 // On socket.io client connected
-io.on("connection", (socket) =>{
+io.on("connection", (socket) => {
     console.log("User connected");
 
     // User disconnected
@@ -72,40 +72,43 @@ io.on("connection", (socket) =>{
     }
 
     socket.on("addpassword", (website, username, password) => {
-        var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
-        
-        var lastData = passwordData;
-        passwordData.push({"website":website,"username":username,"password":password});
-        
-        console.log(passwordData);
-        stringifyData(passwordData, (error, res) => {
-            if (error) {
-                console.log(error.message);
-                passwordData = lastData;
-                socket.emit("passwords", hidePasswords(passwordData));
-                socket.emit("message", "Data parsing failed: " + error.message);
-            }
-            else {
-                console.log(res);
-                fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":res}), hash), (error) => {
-                    if (error) {
-                        console.log(error.message);
-                        passwordData = lastData;
-                        socket.emit("passwords", hidePasswords(passwordData));
-                        socket.emit("message", "Saving failed: " + error.message);
-                    }
-                    else {
-                        console.log("Saved successfully.");
-                        socket.emit("passwords", hidePasswords(passwordData));
-                    }
-                });
-            }
-        });
+        if (website !== "" && username !== "" && password !== "") {
+            var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+            
+            var lastData = passwordData;
+            passwordData.push({"website":website,"username":username,"password":password});
+            
+            stringifyData(passwordData, (error, res) => {
+                if (error) {
+                    console.log(error.message);
+                    passwordData = lastData;
+                    socket.emit("passwords", hidePasswords(passwordData));
+                    socket.emit("message", "Data parsing failed: " + error.message);
+                }
+                else {
+                    console.log(res);
+                    fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":res}), hash), (error) => {
+                        if (error) {
+                            console.log(error.message);
+                            passwordData = lastData;
+                            socket.emit("passwords", hidePasswords(passwordData));
+                            socket.emit("message", "Saving failed: " + error.message);
+                        }
+                        else {
+                            console.log("Saved successfully.");
+                            socket.emit("passwords", hidePasswords(passwordData));
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            socket.emit("message", "Please insert all variables before saving.");
+        }
     });
 
     socket.on("getpassword", (username, password, index, passwordId) => {
         readPasswords(username, password, socket, () => {
-            console.log(passwordData[index]);
             socket.emit("gotpassword", passwordId, passwordData[index]["password"]);
         });
     });

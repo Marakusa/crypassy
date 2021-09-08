@@ -95,3 +95,23 @@ function authorize() {
 function revealPassword(index, passwordId) {
     socket.emit("getpassword", username, password, index, passwordId);
 }
+function addPassword() {
+    const newWebsite = document.getElementById("newWebsite").value;
+    const newUsername = document.getElementById("newUsername").value;
+    const newPassword = document.getElementById("newPassword").value;
+
+    socket.emit("addpassword", newWebsite, newUsername, newPassword);
+    cancelAddPassword();
+}
+function openAddPassword() {
+    document.getElementById("newPasswordPanel").style.display = "";
+    document.getElementById("newWebsite").value = "";
+    document.getElementById("newUsername").value = "";
+    document.getElementById("newPassword").value = "";
+}
+function cancelAddPassword() {
+    document.getElementById("newPasswordPanel").style.display = "none";
+    document.getElementById("newWebsite").value = "";
+    document.getElementById("newUsername").value = "";
+    document.getElementById("newPassword").value = "";
+}
