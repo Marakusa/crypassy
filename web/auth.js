@@ -50,9 +50,12 @@ socket.on("passwords", (data) => {
         var tableElementChild3 = document.createElement("td");
         var passwordText = document.createElement("span");
 
-        const button = "<button id=\"reveal" + i.toString() + "\" onclick=\"revealPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Show</button>";
+        const button = "<br><button id=\"reveal" + i.toString() + "\" onclick=\"revealPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Show</button><button id=\"reveal" + i.toString() + "\" onclick=\"removePassword(" + i.toString() + ");\">Delete</button>";
         passwordText.id = "password" + i.toString();
         passwordText.className = "passwordText";
+
+        tableElementChild1.style.userSelect = "all";
+        tableElementChild2.style.userSelect = "all";
 
         tableElement.appendChild(tableElementChild1);
         tableElement.appendChild(tableElementChild2);
@@ -93,7 +96,22 @@ function authorize() {
     socket.emit("authorize", username, password);
 }
 function revealPassword(index, passwordId) {
-    socket.emit("getpassword", username, password, index, passwordId);
+    const passwordText = document.getElementById(passwordId);
+    const reveal = document.getElementById("reveal" + index);
+    
+    if (passwordText.innerText == "***") {
+        reveal.innerText = "Hide";
+        socket.emit("getpassword", username, password, index, passwordId);
+    }
+    else {
+        passwordText.innerText = "***";
+        reveal.innerText = "Show";
+    }
+}
+function removePassword(index) {
+    if (confirm("Are you sure you want to delete the password?")) {
+        socket.emit("removepassword", username, password, index);
+    }
 }
 function addPassword() {
     const newWebsite = document.getElementById("newWebsite").value;
@@ -114,4 +132,15 @@ function cancelAddPassword() {
     document.getElementById("newWebsite").value = "";
     document.getElementById("newUsername").value = "";
     document.getElementById("newPassword").value = "";
+}
+function randomPassword() {
+    const alphabet = "01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-!@%&/()[]{}+?=";
+    var random = "";
+
+    for (var i = 0; i < 20; i++) {
+        var character = Math.round(Math.random() * (alphabet.length - 1));
+        random += alphabet[character].toString();
+    }
+    
+    document.getElementById("newPassword").value = random;
 }

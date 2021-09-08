@@ -66,18 +66,16 @@ io.on("connection", (socket) => {
             readPasswords(user, password, socket);
         }
     });
-
-    if (!fs.existsSync(passwordDataFile)) {
-        socket.emit("new_account");
-    }
-
+    
     socket.on("addpassword", (website, username, password) => {
         if (website !== "" && username !== "" && password !== "") {
             var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
             
             var lastData = passwordData;
+            console.log(passwordData);
             passwordData.push({"website":website,"username":username,"password":password});
             
+            console.log(passwordData);
             stringifyData(passwordData, (error, res) => {
                 if (error) {
                     console.log(error.message);
@@ -110,6 +108,46 @@ io.on("connection", (socket) => {
     socket.on("getpassword", (username, password, index, passwordId) => {
         readPasswords(username, password, socket, () => {
             socket.emit("gotpassword", passwordId, passwordData[index]["password"]);
+        });
+    });
+
+    socket.on("removepassword", (username, password, index) => {
+        readPasswords(username, password, socket, () => {
+            var newList = [];
+            
+            var i = 0;
+            passwordData.forEach(element => {
+                if (index !== i) {
+                    newList.push(element);
+                }
+                i++;
+            });
+    
+            passwordData = newList;
+            
+            var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+            
+            stringifyData(passwordData, (error, res) => {
+                if (error) {
+                    console.log(error.message);
+                    socket.emit("passwords", hidePasswords(passwordData));
+                    socket.emit("message", "Data parsing failed: " + error.message);
+                }
+                else {
+                    console.log(res);
+                    fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":res}), hash), (error) => {
+                        if (error) {
+                            console.log(error.message);
+                            socket.emit("passwords", hidePasswords(passwordData));
+                            socket.emit("message", "Saving failed: " + error.message);
+                        }
+                        else {
+                            console.log("Saved successfully.");
+                            socket.emit("passwords", hidePasswords(passwordData));
+                        }
+                    });
+                }
+            });
         });
     });
 });
@@ -242,7 +280,7 @@ function readPasswords(user, password, socket, callback = null) {
                 if (results["user"] == user && results["password"] == password) {
                     connectionUsername = user;
                     connectionPassword = password;
-                    passwordData =  jsonResults;
+                    passwordData = jsonResults;
                     if (callback) {
                         callback();
                     }
@@ -277,8 +315,11 @@ function hidePasswords(data) {
     var result = [];
 
     for (var i = 0; i < data.length; i++) {
-        var resultData = data[i];
-        resultData["password"] = "***";
+        var resultData = {
+            "website": data[i]["website"],
+            "username": data[i]["username"],
+            "password": "***"
+        };
         result.push(resultData);
     }
 
