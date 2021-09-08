@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>&CODE - &MESSAGE</title>
+    </head>
+
+    <body>
+        <h1>Error &CODE - &MESSAGE</h1>
+        <p>Please try again later or contact the server administrator.</p>
+        <hr>
+        <i>Node.js/&NODE (&OS) HTTP Server at <span id="address">null</span> Port &PORT</i>
+    </body>
+
+    <script>
+        const address = document.getElementById("address");
+        address.innerText = document.domain;
+    </script>
+
+</html>

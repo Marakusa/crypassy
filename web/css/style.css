@@ -1,0 +1,28 @@
+body {
+    background-color: rgb(24, 24, 32);
+    color: rgb(255, 255, 255);
+}
+
+#fail {
+    color: rgb(255, 99, 71);
+}
+
+table, th {
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+}
+td {
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: white;
+    padding: 10px;
+    padding-right: 50px;
+}
+tr:first-child {
+    background-color: rgb(89, 117, 141);
+}
+
+.passwordText {
+    user-select: all;
+}

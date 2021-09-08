@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Home - Passman</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="socket.io/socket.io.js"></script>
+    </head>
+
+    <body>
+        <h1>Passman</h1>
+        <p>Welcome to Passman! Manage passwords from your USB stick safely.</p>
+        <hr>
+        <div id="authorization" style="display:none">
+            <input type="text" id="username" name="username" placeholder="User">
+            <input type="password" id="password" name="username" placeholder="Password">
+            <button onclick="authorize();">Authorize</button>
+            <br>
+            <p id="fail"></p>
+        </div>
+        <div id="authorizating">
+            <p>Please wait...</p>
+        </div>
+        <div id="content" style="display:none">
+            <p>Here are your passwords. Press "Show" to reveal a password.</p>
+            <table>
+                <tbody id="passwordList">
+                    <tr>
+                        <th>Website</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr>
+        <p>Passman encrypts your data with your login authentication name and key hashes.</p>
+        <p>If your USB stick gets stolen, the data is hard to decrypt.</p>
+        <p>If you forget your authentication name and key, your data is hard to recover.</p>
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/auth.js"></script>
+        <script>
+            $(document).ready(function() {
+                document.getElementById("authorization").style.display = "block";
+                document.getElementById("content").style.display = "none";
+                document.getElementById("authorizating").style.display = "none";
+                document.getElementById("fail").innerText = "";
+            });
+        </script>
+    </body>
+
+</html>
