@@ -263,7 +263,7 @@ function readPasswords(user, password, socket, callback = null) {
                     callback();
                 }
                 else {
-                    socket.emit("authorized", false, "Loading data failed: " + error.message);
+                    socket.emit("authorized", false, "Loading data failed (most likely wrong password and/or username): " + error.message);
                 }
             }
         }
