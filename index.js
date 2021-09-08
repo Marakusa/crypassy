@@ -2,7 +2,6 @@ const { Server } = require("socket.io");
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const r = require("rethinkdb");
 const crypto = require("crypto");
 const os = require('os');
 
