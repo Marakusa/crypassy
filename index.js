@@ -1,5 +1,5 @@
 const { Server } = require("socket.io");
-const http = require("https");
+const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const r = require("rethinkdb");
@@ -17,16 +17,16 @@ const errors = JSON.parse(fs.readFileSync("json/errors.json"));
 const nodeVersion = process.version.substring(1);
 const serverOS = os.type() + " " + os.release();
 
-// Set SSL keys
+/*// Set SSL keys
 var serverOptions =  {
     key: fs.readFileSync("ssl/key.pem"),
     cert: fs.readFileSync("ssl/certificate.pem")
-};
+};*/
 
 // Start HTTP server and socket.io
-server = http.createServer(serverOptions, requestListener);
+server = http.createServer({}, requestListener);
 server.listen(port);
-console.log("Server started at https://127.0.0.1:" + port);
+console.log("Server started at http://127.0.0.1:" + port);
 
 const io = new Server(server);
 
