@@ -1,4 +1,5 @@
-# Crypassy
+# ![132775700-a89da45c-2873-4a51-83ac-6e56a256a437](https://user-images.githubusercontent.com/29477753/132776086-60753733-dc54-4502-be46-cfd290aeea06.png)
+
 Manage passwords from your USB stick safely.
 
 Crypassy encrypts your data with your login username and password hashes. If your USB stick gets stolen, the data is hard to decrypt.
