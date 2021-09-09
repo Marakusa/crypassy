@@ -35,6 +35,8 @@
             <p>Please wait...</p>
         </div>
         <div id="content" style="display:none">
+            <input type="file" id="passwordFileImport">
+            <button onclick="uploadPressed();">Submit</button>
             <p>Here are your passwords. Press "Show" to reveal a password.</p>
             <a onclick="openAddPassword();" class="newPasswordAdd">+ Add</a>
             <table>
@@ -52,6 +54,7 @@
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/upload-client.js"></script>
         <script src="/auth.js"></script>
         <script>
             $(document).ready(function() {
