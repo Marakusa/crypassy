@@ -25,6 +25,10 @@ var serverOptions =  {
     cert: fs.readFileSync("ssl/certificate.pem")
 };*/
 
+// Show app version
+const version = "v0.1.0-alpha";
+console.log("Starting Crypassy " + version);
+
 // Start HTTP server and socket.io
 server = http.createServer({}, requestListener);
 server.listen(port);
@@ -245,7 +249,7 @@ function requestListener(req, res) {
                                                         }
                                                         else {
                                                             res.writeHead(200, getHeader(file));
-                                                            res.write(f);
+                                                            res.write(f.toString().replace(/&V/g, version));
                                                             res.end();
                                                             authorizeClient(connectionUsername, connectionPassword, clientSocket);
                                                         }
@@ -261,7 +265,7 @@ function requestListener(req, res) {
                 }
                 else {
                     res.writeHead(200, getHeader(file));
-                    res.write(f);
+                    res.write(f.toString().replace(/&V/g, version));
                     res.end();
                 }
             }
