@@ -191,44 +191,42 @@ function requestListener(req, res) {
                                     resultError(res, 500, "File read failed: " + err.message);
                                 }
                                 else {
-                                    if (!fs.existsSync("tmp")) fs.mkdirSync("tmp");
+                                    try {
+                                        fs.rmSync(files["fileInput"].path);
+                                    }
+                                    catch (e) {
+                                        log.error(e);
+                                    }
 
-                                    fs.writeFile("tmp/passwords.csv", data.toString(), (err) => {
+                                    csv(data.toString(), {columns: true, trim: true}, (err, records) => {
                                         if (err) {
-                                            resultError(res, 500, "File write failed: " + err.message);
+                                            resultError(res, 500, "File read failed: " + err.message);
                                         }
                                         else {
-                                            csv(data.toString(), {columns: true, trim: true}, (err, records) => {
+                                            records.forEach(element => {
+                                                passwordData.push({
+                                                    "website": element["url"],
+                                                    "username": element["username"],
+                                                    "password": element["password"]
+                                                });
+                                            });
+
+                                            var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+    
+                                            stringifyData(passwordData, (err, wres) => {
                                                 if (err) {
-                                                    resultError(res, 500, "File read failed: " + err.message);
+                                                    resultError(res, 500, "Passwords parse failed: " + err.message);
                                                 }
                                                 else {
-                                                    records.forEach(element => {
-                                                        passwordData.push({
-                                                            "website": element["url"],
-                                                            "username": element["username"],
-                                                            "password": element["password"]
-                                                        });
-                                                    });
-
-                                                    var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
-            
-                                                    stringifyData(passwordData, (err, wres) => {
+                                                    fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":wres}), hash), (err) => {
                                                         if (err) {
-                                                            resultError(res, 500, "Passwords parse failed: " + err.message);
+                                                            resultError(res, 500, "Passwords save failed: " + err.message);
                                                         }
                                                         else {
-                                                            fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":wres}), hash), (err) => {
-                                                                if (err) {
-                                                                    resultError(res, 500, "Passwords save failed: " + err.message);
-                                                                }
-                                                                else {
-                                                                    res.writeHead(200, getHeader(file));
-                                                                    res.write(f);
-                                                                    res.end();
-                                                                    authorizeClient(connectionUsername, connectionPassword, clientSocket);
-                                                                }
-                                                            });
+                                                            res.writeHead(200, getHeader(file));
+                                                            res.write(f);
+                                                            res.end();
+                                                            authorizeClient(connectionUsername, connectionPassword, clientSocket);
                                                         }
                                                     });
                                                 }
