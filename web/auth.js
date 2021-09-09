@@ -50,7 +50,7 @@ socket.on("passwords", (data) => {
         var tableElementChild3 = document.createElement("td");
         var passwordText = document.createElement("span");
 
-        const button = "<br><button id=\"reveal" + i.toString() + "\" onclick=\"revealPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Show</button><button id=\"reveal" + i.toString() + "\" onclick=\"removePassword(" + i.toString() + ");\">Delete</button><button id=\"edit" + i.toString() + "\" onclick=\"editPassword(" + i.toString() + ");\" disabled>Edit</button><button id=\"copy" + i.toString() + "\" onclick=\"copyPassword(" + i.toString() + ");\">Copy Password</button>";
+        const button = "<br><button id=\"reveal" + i.toString() + "\" onclick=\"revealPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Show</button><button id=\"reveal" + i.toString() + "\" onclick=\"removePassword(" + i.toString() + ");\">Delete</button><button id=\"edit" + i.toString() + "\" onclick=\"editPassword(" + i.toString() + ");\" disabled>Edit</button><button id=\"copy" + i.toString() + "\" onclick=\"copyPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Copy Password</button>";
         passwordText.id = "password" + i.toString();
         passwordText.className = "passwordText";
 
@@ -83,6 +83,20 @@ socket.on("gotpassword", (passwordId, password) => {
     passwordText.innerText = password;
 });
 
+socket.on("copypassword", (passwordId, password) => {
+    var copyText = document.getElementById("copyInput");
+    copyText.value = password;
+    
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    
+    navigator.clipboard.writeText(copyText.value);
+});
+
+socket.on("checkedpassword", (strength) => {
+    document.getElementById("strength").innerHTML = strength;
+});
+
 // Webpage code
 function authorize() {
     document.getElementById("authorization").style.display = "none";
@@ -108,7 +122,7 @@ function revealPassword(index, passwordId) {
         reveal.innerText = "Show";
     }
 }
-function copyPassword(index) {
+function copyPassword(index, passwordId) {
     const passwordText = document.getElementById(passwordId);
     const reveal = document.getElementById("reveal" + index);
     passwordText.innerText = "***";
@@ -158,6 +172,3 @@ function checkPassword() {
         socket.emit("checkpassword", document.getElementById("username").value + document.getElementById("password").value);
     }, 1000);
 }
-socket.on("checkedpassword", (strength) => {
-    document.getElementById("strength").innerHTML = strength;
-});

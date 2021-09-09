@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
 
     socket.on("getpassword", (username, password, index, passwordId) => {
         readPasswords(username, password, socket, () => {
-            socket.emit("gotpassword", passwordId, passwordData[index]["password"] + "</span>");
+            socket.emit("gotpassword", passwordId, passwordData[index]["password"]);
         });
     });
 
@@ -114,7 +114,6 @@ io.on("connection", (socket) => {
                     socket.emit("message", "Data parsing failed: " + error.message);
                 }
                 else {
-                    console.log(res);
                     fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":res}), hash), (error) => {
                         if (error) {
                             console.log(error.message);
@@ -137,7 +136,6 @@ io.on("connection", (socket) => {
         var strengthColor = "grey";
         var checkTime = check.crack_times_seconds["offline_fast_hashing_1e10_per_second"];
 
-        console.log(checkTime);
         if (check.checkTime >= 315576000) strengthColor = "green";
         else if (checkTime >= 31557600) strengthColor = "lime";
         else if (checkTime >= 18408600) strengthColor = "yellow";
@@ -145,6 +143,12 @@ io.on("connection", (socket) => {
         else strengthColor = "grey";
 
         socket.emit("checkedpassword", "Fast offline (<span style=\"color: " + strengthColor + "\">" + check.crack_times_display["offline_fast_hashing_1e10_per_second"] + "</span>)");
+    });
+
+    socket.on("copypassword", (username, password, index, passwordId) => {
+        readPasswords(username, password, socket, () => {
+            socket.emit("copypassword", passwordId, passwordData[index]["password"]);
+        });
     });
 });
 
@@ -203,7 +207,7 @@ function requestListener(req, res) {
                             resultError(res, 500, "File upload failed: " + err.message);
                         }
                         else {
-                            console.log(fs.readFile(files["fileInput"].path, (err, data) => {
+                            fs.readFile(files["fileInput"].path, (err, data) => {
                                 if (err) {
                                     resultError(res, 500, "File read failed: " + err.message);
                                 }
@@ -251,7 +255,7 @@ function requestListener(req, res) {
                                         }
                                     });
                                 }
-                            }));
+                            });
                         }
                     });
                 }
