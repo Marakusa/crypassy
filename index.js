@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const os = require('os');
 const formidable = require('formidable');
 const csv = require('csv-parse');
+const zxcvbn = require('zxcvbn');
 
 const passwordDataFile = "data/local.pmd";
 var passwordData = [];
@@ -128,6 +129,11 @@ io.on("connection", (socket) => {
                 }
             });
         });
+    });
+
+    socket.on("checkpassword", (password) => {
+        var check = zxcvbn(password);
+        socket.emit("checkedpassword", "Fast offline (" + check.crack_times_display["offline_fast_hashing_1e10_per_second"] + ")");
     });
 });
 

@@ -4,7 +4,7 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>Home - Passman</title>
+        <title>Home - Crypassy</title>
         <link rel="stylesheet" href="css/style.css">
         <script src="socket.io/socket.io.js"></script>
     </head>
@@ -21,17 +21,26 @@
                 <button onclick="cancelAddPassword();">Cancel</button>
             </div>
         </div>
-        <h1>Passman</h1>
-        <p>Welcome to Passman! Manage passwords from your USB stick safely.</p>
+
+        <h1>Crypassy</h1>
+        <p>Welcome to Crypassy! Manage passwords from your USB stick safely.</p>
         <hr>
+        <p>Crypassy encrypts your data with your login authentication name and key hashes.</p>
+        <p>If your USB stick gets stolen, the data is hard to decrypt.</p>
+        <p>If you forget your authentication name and key, your data is hard to recover.</p>
+        <hr>
+
         <div id="authorization" style="display:none">
-            <p style="color: tomato;">If this is your first time opening Passman and you don't have a local "account", please fill in new credentials to create it.</p>
-            <p style="color: tomato;">IMPORTANT: New entered credentials cannot be changed (yet)!</p>
+            <p>If this is your first time opening Crypassy and you don't have a local "account", please fill in new credentials to create it.</p>
+            <p style="color: tomato;">IF YOU FORGET OR LOSE YOUR CREDENTIALS, YOUR PASSWORDS CAN'T BE RECOVERED (because this is a safe service)</p>
             <br>
-            <input type="text" id="username" name="username" placeholder="User">
-            <input type="password" id="password" name="username" placeholder="Password">
+            <input type="text" id="username" name="username" placeholder="User" oninput="checkPassword();">
+            <input type="password" id="password" name="username" placeholder="Password" oninput="checkPassword();">
             <button onclick="authorize();">Authorize</button>
             <br>
+            <p>Password strength: <span id="strength"></span> (centuries is recommended)</p>
+            <p style="color: tomato;">Strength matters if the encoded file gets stolen.</p>
+            <hr>
             <p id="fail"></p>
         </div>
         <div id="authorizating">
@@ -39,11 +48,6 @@
         </div>
         <div id="content" style="display:none">
 
-            <p>Passman encrypts your data with your login authentication name and key hashes.</p>
-            <p>If your USB stick gets stolen, the data is hard to decrypt.</p>
-            <p>If you forget your authentication name and key, your data is hard to recover.</p>
-            <hr>
-    
             <h3>Import passwords</h3>
             <p style="color: tomato;">You will be logged out after importing.</p>
             <form id="fileUpload" method="POST" enctype="multipart/form-data">

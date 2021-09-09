@@ -50,7 +50,7 @@ socket.on("passwords", (data) => {
         var tableElementChild3 = document.createElement("td");
         var passwordText = document.createElement("span");
 
-        const button = "<br><button id=\"reveal" + i.toString() + "\" onclick=\"revealPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Show</button><button id=\"reveal" + i.toString() + "\" onclick=\"removePassword(" + i.toString() + ");\">Delete</button>";
+        const button = "<br><button id=\"reveal" + i.toString() + "\" onclick=\"revealPassword(" + i.toString() + ", 'password" + i.toString() + "');\">Show</button><button id=\"reveal" + i.toString() + "\" onclick=\"removePassword(" + i.toString() + ");\">Delete</button><button id=\"edit" + i.toString() + "\" onclick=\"editPassword(" + i.toString() + ");\" disabled>Edit</button><button id=\"copy" + i.toString() + "\" onclick=\"copyPassword(" + i.toString() + ");\">Copy Password</button>";
         passwordText.id = "password" + i.toString();
         passwordText.className = "passwordText";
 
@@ -108,6 +108,14 @@ function revealPassword(index, passwordId) {
         reveal.innerText = "Show";
     }
 }
+function copyPassword(index) {
+    const passwordText = document.getElementById(passwordId);
+    const reveal = document.getElementById("reveal" + index);
+    passwordText.innerText = "***";
+    reveal.innerText = "Show";
+
+    socket.emit("copypassword", username, password, index, passwordId);
+}
 function removePassword(index) {
     if (confirm("Are you sure you want to delete the password?")) {
         socket.emit("removepassword", username, password, index);
@@ -144,3 +152,12 @@ function randomPassword() {
     
     document.getElementById("newPassword").value = random;
 }
+function checkPassword() {
+    document.getElementById("strength").innerText = "Calculating...";
+    setTimeout(() => {
+        socket.emit("checkpassword", document.getElementById("username").value + document.getElementById("password").value);
+    }, 1000);
+}
+socket.on("checkedpassword", (strength) => {
+    document.getElementById("strength").innerText = strength;
+});
