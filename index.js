@@ -4,6 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const os = require('os');
+const formidable = require('formidable');
+const csv = require('csv-parse');
 
 const passwordDataFile = "data/local.pmd";
 var passwordData = [];
@@ -29,8 +31,12 @@ console.log("Server started at http://127.0.0.1:" + port);
 
 const io = new Server(server);
 
+var clientSocket;
+
 // On socket.io client connected
 io.on("connection", (socket) => {
+    clientSocket = socket;
+    
     console.log("User connected");
 
     // User disconnected
@@ -39,31 +45,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("authorize", (user, password) => {
-        if (!fs.existsSync(passwordDataFile)) {
-            if (user.length >= 8, password.length >= 8) {
-                var hash = crypto.createHash("RSA-SHA1").update(user + ";" + password + ";" + user.split("").reverse().join("")).digest("hex");
-                
-                fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":user,"password":password,"data":"[]"}), hash), (err) => {
-                    if (err) {
-                        console.log("Assigning new credentials failed: " + err.message);
-                        socket.emit("authorized", false, err.message);
-                    }
-                    else {
-                        console.log("Successfully assigned new credentials.");
-                        socket.emit("authorized", true, "Successfully assigned new credentials.");
-                        connectionUsername = user;
-                        connectionPassword = password;
-                        passwordData = [];
-                    }
-                });
-            }
-            else {
-                socket.emit("authorized", false, "Keys too short (min. 8 characters)\nNo account found. Create new by authorizing with new credentials.");
-            }
-        }
-        else {
-            readPasswords(user, password, socket);
-        }
+        authorizeClient(user, password, socket);
     });
     
     socket.on("addpassword", (website, username, password) => {
@@ -71,10 +53,8 @@ io.on("connection", (socket) => {
             var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
             
             var lastData = passwordData;
-            console.log(passwordData);
             passwordData.push({"website":website,"username":username,"password":password});
             
-            console.log(passwordData);
             stringifyData(passwordData, (error, res) => {
                 if (error) {
                     console.log(error.message);
@@ -151,6 +131,34 @@ io.on("connection", (socket) => {
     });
 });
 
+function authorizeClient(user, password, socket) {
+    if (!fs.existsSync(passwordDataFile)) {
+        if (user.length >= 8, password.length >= 8) {
+            var hash = crypto.createHash("RSA-SHA1").update(user + ";" + password + ";" + user.split("").reverse().join("")).digest("hex");
+            
+            fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":user,"password":password,"data":"[]"}), hash), (err) => {
+                if (err) {
+                    console.log("Assigning new credentials failed: " + err.message);
+                    socket.emit("authorized", false, err.message);
+                }
+                else {
+                    console.log("Successfully assigned new credentials.");
+                    socket.emit("authorized", true, "Successfully assigned new credentials.");
+                    connectionUsername = user;
+                    connectionPassword = password;
+                    passwordData = [];
+                }
+            });
+        }
+        else {
+            socket.emit("authorized", false, "Keys too short (min. 8 characters)\nNo account found. Create new by authorizing with new credentials.");
+        }
+    }
+    else {
+        readPasswords(user, password, socket);
+    }
+}
+
 function requestListener(req, res) {
 
     var file = req.url;
@@ -169,16 +177,74 @@ function requestListener(req, res) {
     
             if (err) {
                 resultError(res, 404, "File " + file + " doesn't exist");
-                //if (path.extname(file) === ".html" || path.extname(file) === ".htm") {
-                //    resultError(res, 404);
-                //}
-                //else {
-                //}
             }
             else {
-                res.writeHead(200, getHeader(file));
-                res.write(f);
-                res.end();
+                if (req.method == "POST") {
+                    var form = new formidable.IncomingForm();
+                    form.parse(req, function (err, fields, files) {
+                        if (err) {
+                            resultError(res, 500, "File upload failed: " + err.message);
+                        }
+                        else {
+                            console.log(fs.readFile(files["fileInput"].path, (err, data) => {
+                                if (err) {
+                                    resultError(res, 500, "File read failed: " + err.message);
+                                }
+                                else {
+                                    if (!fs.existsSync("tmp")) fs.mkdirSync("tmp");
+
+                                    fs.writeFile("tmp/passwords.csv", data.toString(), (err) => {
+                                        if (err) {
+                                            resultError(res, 500, "File write failed: " + err.message);
+                                        }
+                                        else {
+                                            csv(data.toString(), {columns: true, trim: true}, (err, records) => {
+                                                if (err) {
+                                                    resultError(res, 500, "File read failed: " + err.message);
+                                                }
+                                                else {
+                                                    records.forEach(element => {
+                                                        passwordData.push({
+                                                            "website": element["url"],
+                                                            "username": element["username"],
+                                                            "password": element["password"]
+                                                        });
+                                                    });
+
+                                                    var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+            
+                                                    stringifyData(passwordData, (err, wres) => {
+                                                        if (err) {
+                                                            resultError(res, 500, "Passwords parse failed: " + err.message);
+                                                        }
+                                                        else {
+                                                            fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":connectionUsername,"password":connectionPassword,"data":wres}), hash), (err) => {
+                                                                if (err) {
+                                                                    resultError(res, 500, "Passwords save failed: " + err.message);
+                                                                }
+                                                                else {
+                                                                    res.writeHead(200, getHeader(file));
+                                                                    res.write(f);
+                                                                    res.end();
+                                                                    authorizeClient(connectionUsername, connectionPassword, clientSocket);
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }));
+                        }
+                    });
+                }
+                else {
+                    res.writeHead(200, getHeader(file));
+                    res.write(f);
+                    res.end();
+                }
             }
     
         });

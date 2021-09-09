@@ -35,8 +35,16 @@
             <p>Please wait...</p>
         </div>
         <div id="content" style="display:none">
-            <input type="file" id="passwordFileImport">
-            <button onclick="uploadPressed();">Submit</button>
+
+            <h3>Import passwords</h3>
+            <form id="fileUpload" method="POST" enctype="multipart/form-data">
+                <input name="fileInput" type="file">
+                <br>
+                <input type="submit" value="Submit" style="margin-bottom: 10px;">
+            </form>
+
+            <hr>
+
             <p>Here are your passwords. Press "Show" to reveal a password.</p>
             <a onclick="openAddPassword();" class="newPasswordAdd">+ Add</a>
             <table>
@@ -52,9 +60,8 @@
         <p>If your USB stick gets stolen, the data is hard to decrypt.</p>
         <p>If you forget your authentication name and key, your data is hard to recover.</p>
 
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="/jquery-1.10.2.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
-        <script src="/upload-client.js"></script>
         <script src="/auth.js"></script>
         <script>
             $(document).ready(function() {
@@ -62,6 +69,17 @@
                 document.getElementById("content").style.display = "none";
                 document.getElementById("authorizating").style.display = "none";
                 document.getElementById("fail").innerText = "";
+            });
+
+            $(document.getElementById("fileUpload")).submit(function (e) {
+                var url = form.attr("");
+                var formData = {};
+                $(this).find("input[fileInput]").each(function (index, node) {
+                    formData[node.name] = node.value;
+                });
+                $.post(url, formData).done(function (data) {
+                    alert(data);
+                });
             });
         </script>
     </body>
