@@ -23,7 +23,7 @@ cd crypassy
 ./build.sh
 ```
 ### Windows
-Building for Windows is possible, but I haven't created a shell script for it :P
+Building for Windows is possible, but I haven't created a shell script for it yet :P
 ```
 No supported build script yet...
 ```
