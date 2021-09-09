@@ -39,7 +39,13 @@
         </div>
         <div id="content" style="display:none">
 
+            <p>Passman encrypts your data with your login authentication name and key hashes.</p>
+            <p>If your USB stick gets stolen, the data is hard to decrypt.</p>
+            <p>If you forget your authentication name and key, your data is hard to recover.</p>
+            <hr>
+    
             <h3>Import passwords</h3>
+            <p style="color: tomato;">You will be logged out after importing.</p>
             <form id="fileUpload" method="POST" enctype="multipart/form-data">
                 <input name="fileInput" type="file">
                 <br>
@@ -49,6 +55,7 @@
             <hr>
 
             <p>Here are your passwords. Press "Show" to reveal a password.</p>
+            <p style="color: tomato;">You will be logged out after refreshing or closing the tab.</p>
             <a onclick="openAddPassword();" class="newPasswordAdd">+ Add</a>
             <table>
                 <tbody id="passwordList">
@@ -57,11 +64,6 @@
             </table>
             <a onclick="openAddPassword();" class="newPasswordAdd">+ Add</a>
         </div>
-
-        <hr>
-        <p>Passman encrypts your data with your login authentication name and key hashes.</p>
-        <p>If your USB stick gets stolen, the data is hard to decrypt.</p>
-        <p>If you forget your authentication name and key, your data is hard to recover.</p>
 
         <script src="/jquery-1.10.2.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
