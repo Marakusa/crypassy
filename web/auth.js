@@ -159,5 +159,5 @@ function checkPassword() {
     }, 1000);
 }
 socket.on("checkedpassword", (strength) => {
-    document.getElementById("strength").innerText = strength;
+    document.getElementById("strength").innerHTML = strength;
 });

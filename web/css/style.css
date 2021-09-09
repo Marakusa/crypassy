@@ -1,6 +1,11 @@
 body {
     background-color: rgb(24, 24, 32);
     color: rgb(255, 255, 255);
+    font-family: 'Azeret Mono', monospace, serif;
+}
+
+p {
+    margin: 2px 0;
 }
 
 #fail {

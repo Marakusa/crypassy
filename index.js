@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
 
     socket.on("getpassword", (username, password, index, passwordId) => {
         readPasswords(username, password, socket, () => {
-            socket.emit("gotpassword", passwordId, passwordData[index]["password"]);
+            socket.emit("gotpassword", passwordId, passwordData[index]["password"] + "</span>");
         });
     });
 
@@ -133,7 +133,18 @@ io.on("connection", (socket) => {
 
     socket.on("checkpassword", (password) => {
         var check = zxcvbn(password);
-        socket.emit("checkedpassword", "Fast offline (" + check.crack_times_display["offline_fast_hashing_1e10_per_second"] + ")");
+
+        var strengthColor = "grey";
+        var checkTime = check.crack_times_seconds["offline_fast_hashing_1e10_per_second"];
+
+        console.log(checkTime);
+        if (check.checkTime >= 315576000) strengthColor = "green";
+        else if (checkTime >= 31557600) strengthColor = "lime";
+        else if (checkTime >= 18408600) strengthColor = "yellow";
+        else if (checkTime >= 5259600) strengthColor = "tomato";
+        else strengthColor = "grey";
+
+        socket.emit("checkedpassword", "Fast offline (<span style=\"color: " + strengthColor + "\">" + check.crack_times_display["offline_fast_hashing_1e10_per_second"] + "</span>)");
     });
 });
 

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128.0px"
+   height="128.0px"
+   viewBox="0 0 128.0 128.0"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview829"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="5.6568543"
+     inkscape:cx="64.258329"
+     inkscape:cy="69.296464"
+     inkscape:window-width="1920"
+     inkscape:window-height="1024"
+     inkscape:window-x="1360"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2"
+     showguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid892" />
+  </sodipodi:namedview>
+  <defs
+     id="defs824">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient5435">
+      <stop
+         style="stop-color:#6f00bb;stop-opacity:1"
+         offset="0"
+         id="stop5431" />
+      <stop
+         style="stop-color:#c400c1;stop-opacity:1"
+         offset="1"
+         id="stop5433" />
+    </linearGradient>
+    <mask
+       maskUnits="userSpaceOnUse"
+       id="mask5267">
+      <g
+         id="g5363"
+         style="fill:#ffffff">
+        <path
+           id="path5269"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 105,15 h 5 v 5 h -5 z" />
+        <path
+           id="path5271"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 100,25 h 5 v 5 h -5 z" />
+        <path
+           id="path5273"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 105,45 h 5 v 5 h -5 z" />
+        <path
+           id="path5275"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 105,70 h 5 v 5 h -5 z" />
+        <path
+           id="path5277"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 100,80 h 5 v 5 h -5 z" />
+        <path
+           id="path5279"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 105,95 h 5 v 5 h -5 z" />
+        <path
+           id="path5281"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 100,110 h 5 v 5 h -5 z" />
+        <path
+           id="path5283"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 95,100 h 5 v 5 h -5 z" />
+        <path
+           id="path5285"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 90,95 h 5 v 5 h -5 z" />
+        <path
+           id="path5287"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 95,90 h 5 v 5 h -5 z" />
+        <path
+           id="path5289"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 90,80 h 5 v 5 h -5 z" />
+        <path
+           id="path5291"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 90,65 h 5 v 5 h -5 z" />
+        <path
+           id="path5293"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 95,50 h 5 v 5 h -5 z" />
+        <path
+           id="path5295"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 90,60 h 5 v 5 h -5 z" />
+        <path
+           id="path5297"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 80,55 h 5 v 5 h -5 z" />
+        <path
+           id="path5299"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 70,65 h 5 v 5 h -5 z" />
+        <path
+           id="path5301"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 75,90 h 5 v 5 h -5 z" />
+        <path
+           id="path5303"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 70,85 h 5 v 5 h -5 z" />
+        <path
+           id="path5305"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 70,110 h 5 v 5 h -5 z" />
+        <path
+           id="path5307"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 80,40 h 5 v 5 h -5 z" />
+        <path
+           id="path5309"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 85,35 h 5 v 5 h -5 z" />
+        <path
+           id="path5311"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 85,40 h 5 v 5 h -5 z" />
+        <path
+           id="path5313"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 80,75 h 5 v 5 h -5 z" />
+        <path
+           id="path5315"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 85,80 h 5 v 5 h -5 z" />
+        <path
+           id="path5317"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 85,95 h 5 v 5 h -5 z" />
+        <path
+           id="path5319"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 80,100 h 5 v 5 h -5 z" />
+        <path
+           id="path5321"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 90,40 h 5 v 5 h -5 z" />
+        <path
+           id="path5323"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 95,35 h 5 v 5 h -5 z" />
+        <path
+           id="path5325"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 85,25 h 5 v 5 h -5 z" />
+        <path
+           id="path5327"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 80,30 h 5 v 5 h -5 z" />
+        <path
+           id="path5329"
+           style="fill:#ffffff"
+           d="M 80,45 H 90 V 55 H 80 Z" />
+        <path
+           id="path5331"
+           style="fill:#ffffff"
+           d="M 80,65 H 90 V 75 H 80 Z" />
+        <path
+           id="path5333"
+           style="fill:#ffffff"
+           d="M 70,55 H 80 V 65 H 70 Z" />
+        <path
+           id="path5335"
+           style="fill:#ffffff"
+           d="M 80,85 H 90 V 95 H 80 Z" />
+        <path
+           id="path5337"
+           style="fill:#ffffff"
+           d="m 80,105 h 10 v 10 H 80 Z" />
+        <path
+           id="path5339"
+           style="fill:#ffffff"
+           d="m 70,95 h 10 v 10 H 70 Z" />
+        <path
+           id="path5341"
+           style="fill:#ffffff;stroke-width:2.23607"
+           d="m 60,65 h 10 v 50 H 60 Z" />
+        <path
+           id="path5343"
+           style="fill:#ffffff;stroke-width:2"
+           d="M 60,15 H 70 V 55 H 60 Z" />
+        <path
+           id="path5345"
+           style="fill:#ffffff;stroke-width:7.07107"
+           d="M 10,15 H 60 V 115 H 10 Z" />
+        <path
+           id="path5347"
+           style="fill:#ffffff"
+           d="M 70,75 H 80 V 85 H 70 Z" />
+        <path
+           id="path5349"
+           style="fill:#ffffff"
+           d="M 70,35 H 80 V 45 H 70 Z" />
+        <path
+           id="path5351"
+           style="fill:#ffffff"
+           d="M 70,25 H 80 V 35 H 70 Z" />
+        <path
+           id="path5353"
+           style="fill:#ffffff"
+           d="M 80,15 H 90 V 25 H 80 Z" />
+        <path
+           id="path5355"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 90,15 h 5 v 5 h -5 z" />
+        <path
+           id="path5357"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 95,75 h 5 v 5 h -5 z" />
+        <path
+           id="path5359"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 100,60 h 5 v 5 h -5 z" />
+        <path
+           id="path5361"
+           style="fill:#ffffff;stroke-width:0.5"
+           d="m 95,20 h 5 v 5 h -5 z" />
+      </g>
+    </mask>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5435"
+       id="linearGradient5437"
+       x1="50"
+       y1="115"
+       x2="50"
+       y2="15"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <path
+       id="rect961"
+       style="fill:url(#linearGradient5437);fill-opacity:1"
+       d="m 30,15 h 60 c 11.08,0 20,8.92 20,20 v 60 c 0,11.08 -8.92,20 -20,20 H 30 C 18.92,115 10,106.08 10,95 V 35 C 10,23.92 18.92,15 30,15 Z"
+       mask="url(#mask5267)"
+       transform="translate(4,-1)" />
+    <g
+       id="g20390">
+      <g
+         aria-label="C"
+         id="text12964"
+         style="font-size:79.1359px;line-height:1.25;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono';stroke-width:0.412166">
+        <path
+           d="m 68.510745,93.042877 c -5.539513,0 -10.05026,-1.239796 -13.532239,-3.719387 -3.48198,-2.479592 -6.040708,-5.882436 -7.676183,-10.208532 -1.635475,-4.378853 -2.453213,-9.417172 -2.453213,-15.114957 0,-5.961571 0.923252,-11.105405 2.769757,-15.431501 1.899261,-4.378853 4.616261,-7.72894 8.150998,-10.050259 3.587494,-2.374077 7.939969,-3.561116 13.057424,-3.561116 2.743378,0 5.302105,0.290165 7.676182,0.870495 2.426835,0.58033 4.64264,1.398068 6.647416,2.453213 l -2.690621,5.776921 c -1.635475,-0.896874 -3.508358,-1.582719 -5.618649,-2.057534 -2.057533,-0.474815 -4.062309,-0.712223 -6.014328,-0.712223 -5.381241,0 -9.522687,1.952019 -12.424337,5.856057 -2.848893,3.904038 -4.273339,9.522687 -4.273339,16.855947 0,7.016717 1.292553,12.529851 3.877659,16.539404 2.585107,3.956795 6.805688,5.935192 12.661745,5.935192 1.793747,0 3.719387,-0.18465 5.776921,-0.553951 2.110291,-0.422058 4.194203,-1.055145 6.251736,-1.899262 v 6.726552 c -2.110291,0.791359 -4.141446,1.371689 -6.093465,1.74099 -1.899261,0.369301 -3.930416,0.553951 -6.093464,0.553951 z"
+           id="path20063"
+           sodipodi:nodetypes="sscsccsccccscscsccccs" />
+      </g>
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke-width:0.797459"
+         id="rect20303"
+         width="3.1460013"
+         height="2.4257207"
+         x="80"
+         y="35.864758" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:79.1359px;line-height:1.25;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono';stroke-width:0.412166;fill:#ffffff"
+         x="39.626141"
+         y="89.829742"
+         id="text12964-6"><tspan
+           sodipodi:role="line"
+           id="tspan12962-7"
+           x="39.626141"
+           y="89.829742"
+           style="stroke-width:0.412166;fill:#ffffff">C</tspan></text>
+    </g>
+  </g>
+</svg>
