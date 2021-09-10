@@ -26,7 +26,7 @@ var serverOptions =  {
 };*/
 
 // Show app version
-const version = "v0.1.0-alpha";
+const version = "v0.2.0-alpha";
 console.log("Starting Crypassy " + version);
 
 // Start HTTP server and socket.io
@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
     
     socket.on("addpassword", (website, username, password) => {
         if (website !== "" && username !== "" && password !== "") {
-            var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+            var hash = crypto.createHash("sha512").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
             
             var lastData = passwordData;
             passwordData.push({"website":website,"username":username,"password":password});
@@ -109,7 +109,7 @@ io.on("connection", (socket) => {
     
             passwordData = newList;
             
-            var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+            var hash = crypto.createHash("sha512").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
             
             stringifyData(passwordData, (error, res) => {
                 if (error) {
@@ -159,7 +159,7 @@ io.on("connection", (socket) => {
 function authorizeClient(user, password, socket) {
     if (!fs.existsSync(passwordDataFile)) {
         if (user.length >= 8, password.length >= 8) {
-            var hash = crypto.createHash("RSA-SHA1").update(user + ";" + password + ";" + user.split("").reverse().join("")).digest("hex");
+            var hash = crypto.createHash("sha512").update(user + ";" + password + ";" + user.split("").reverse().join("")).digest("hex");
             
             fs.writeFile(passwordDataFile, encryptString(JSON.stringify({"user":user,"password":password,"data":"[]"}), hash), (err) => {
                 if (err) {
@@ -236,7 +236,7 @@ function requestListener(req, res) {
                                                 });
                                             });
 
-                                            var hash = crypto.createHash("RSA-SHA1").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
+                                            var hash = crypto.createHash("sha512").update(connectionUsername + ";" + connectionPassword + ";" + connectionUsername.split("").reverse().join("")).digest("hex");
     
                                             stringifyData(passwordData, (err, wres) => {
                                                 if (err) {
@@ -346,7 +346,7 @@ function stringifyData(data, callback) {
 }
 
 function readPasswords(user, password, socket, callback = null) {
-    var hash = crypto.createHash("RSA-SHA1").update(user + ";" + password + ";" + user.split("").reverse().join("")).digest("hex");
+    var hash = crypto.createHash("sha512").update(user + ";" + password + ";" + user.split("").reverse().join("")).digest("hex");
     
     fs.readFile(passwordDataFile, (err, buffer) => {
         if (err) {
