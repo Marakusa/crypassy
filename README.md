@@ -28,7 +28,7 @@ To start the app run these commands:
 cd build/crypassy/
 ./crypassy
 ```
-And then go to `http://127.0.0.1:8800` in your internet browser.
+And then go to http://127.0.0.1:8800 in your internet browser.
 ### Windows
 Building for Windows is possible, but I haven't created a shell script for it yet :P
 ```
