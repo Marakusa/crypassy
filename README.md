@@ -35,6 +35,7 @@ Building for Windows is possible, but I haven't created a shell script for it ye
 No supported build script yet...
 ```
 ## Usage
-Start the executable found in the build directory and then go to http://127.0.0.1:8800 in your internet browser. You will be asked for credentials but on the first startup you can type new credentials to create your account.
+Start the executable found in the build directory and then go to http://127.0.0.1:8800 in your internet browser. You will be asked for credentials but on the first startup, you can type new credentials to create your account.
 
 Your account and passwords are located in `data/local.pmd` encoded with your encrypted credentials.
+#### We recommend you backup this file regularly and before updating the application.
